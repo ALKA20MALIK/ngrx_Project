@@ -1,0 +1,23 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th><th>Name</th> <th>Contact</th> <th>Edit</th> <th>Delete</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of (customersList | async).customers; let i=index">
+        <td>{{customer.ID}}</td><td>{{customer.Name}}</td><td>{{customer.Contact}}</td>
+        <td><button type="button" class="btn btn-primary" [routerLink]="['/edit',customer.ID]">Edit</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="onDelete(i)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-primary" [routerLink]="['/edit',0]">Add</button>
+    </div>
+  </div>
+</div>
