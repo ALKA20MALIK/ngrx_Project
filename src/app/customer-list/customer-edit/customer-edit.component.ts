@@ -9,7 +9,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 @Component({
   selector: 'app-customer-edit',
   templateUrl: './customer-edit.component.html',
-  styleUrls: ['./customer-edit.component.css']
+  //styleUrls: ['./customer-edit.component.css']
 })
 export class CustomerEditComponent implements OnInit {
   @ViewChild('f') slForm: NgForm;

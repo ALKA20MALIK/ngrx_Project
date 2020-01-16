@@ -1,0 +1,6 @@
+{
+  "customers" :[
+      { "id":1, "FirstName": "Alka","Phone":8860634723 },
+      { "id":2, "FirstName": "Bhoop","Phone":8860634724 }
+  ]
+}

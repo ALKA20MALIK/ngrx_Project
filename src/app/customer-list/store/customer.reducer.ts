@@ -2,18 +2,21 @@ import { Store } from "@ngrx/store";
 import { Customer } from '../models/customer.model';
 import * as AllCustomerActions from "../store/customer.action";
 
-const initialState = {
-    customers: [
-        new Customer(1,'Alka',93284234),
-        new Customer(2,'Bhoop',35325235)
-    ],
-}
+ //initialState:Customer[]
+// const initialState = {
+//     customers: [
+//         new Customer(1,'Alka',93284234),
+//         new Customer(2,'Bhoop',35325235)
+//     ],
+// }
 
-export function CustomerReducer(state=initialState,action: AllCustomerActions.CustomerActions ){
+export function CustomerReducer(state,action: AllCustomerActions.CustomerActions ){
 
     switch(action.type){
         case "ADD_CUSTOMER":
             action.payload.ID=state.customers.length+1
+            console.log("ADD_CUSTOMER")
+
             return {
                 ...state,
                 customers: [...state.customers, action.payload]
@@ -21,14 +24,14 @@ export function CustomerReducer(state=initialState,action: AllCustomerActions.Cu
 
         case "EDIT_CUSTOMER":
             debugger
-            const customer=state.customers[action.index];
-
             const updatedCustomer={
                 ...state,
                 ...action.payload
             }
             
             const customers=[...state.customers];
+            console.log("EDIT_CUSTOMER")
+
             return{
                 ...state,
                 customers:customers
@@ -38,11 +41,16 @@ export function CustomerReducer(state=initialState,action: AllCustomerActions.Cu
             debugger
             const oldcustomers = [...state.customers];
             oldcustomers.splice(action.index, 1);
+            
+            console.log("DELETE_CUSTOMER")
             return {
                 ...state,
                 customers: oldcustomers,
               };
-        default :
-            return state
+        case "SET_CUSTOMER":
+            return {
+                ...state,
+                customers: action.payload
+              };
     }
 }

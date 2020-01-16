@@ -7,7 +7,7 @@ import * as customerAction from "./store/customer.action";
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.css']
+  //styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
 
@@ -17,7 +17,8 @@ customersList:Observable<{customers:Customer[]}>;
 
   ngOnInit() {
     debugger
-    this.customersList=this.store.select('customerList')
+    this.store.dispatch(new customerAction.GetCustomer())
+    //this.customersList=this.store.select('customerList')
     console.log(this.customersList)
   }
 
