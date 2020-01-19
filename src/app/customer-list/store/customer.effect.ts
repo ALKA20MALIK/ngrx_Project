@@ -1,28 +1,82 @@
 import { Actions, ofType, Effect } from "@ngrx/effects";
-import { switchMap,map } from "rxjs/Operators";
+import { Injectable } from '@angular/core';
+
+import { switchMap, map, catchError, tap } from "rxjs/Operators";
 import { HttpClient } from '@angular/common/http';
 import * as customerActions from "../store/customer.action";
 import { Customer } from '../models/customer.model';
+import { of, Observable } from 'rxjs';
+import { Store, Action } from '@ngrx/store';
 
+@Injectable()
 export class CustomerEffect {
+    constructor(public actions$:Actions,private httpClient:HttpClient){
+    }
     
-    constructor(public actions$:Actions,private httpClient:HttpClient){}
+    @Effect() 
+        searchArticleById$: Observable<Action> = this.actions$.pipe(
+            ofType(customerActions.FETCH_CUSTOMERS),
+            switchMap(() => 
+                this.httpClient.get<Customer[]>('http://localhost:3000/customers').pipe(
+                map(data =>  new customerActions.SetCustomers(data)) 
+                )
+            ))
 
-    @Effect()
-    getCustomer=this.actions$.pipe(
-        ofType(customerActions.GET_CUSTOMER),
-        switchMap((customers:customerActions.GetCustomer)=>{
-            return this.httpClient.get<Customer>('http://localhost:3000/customers')
-        }),
-        map((responseData)=>{
-            console.log(responseData)
-            return {
-                type:customerActions.SET_CUSTOMER,
-                payload:responseData
-            }
-        })        
+    // @Effect()
+    // getCustomer$:Observable<Action>=this.actions$.pipe(
+    //     ofType(customerActions.FETCH_CUSTOMERS),
+    //     switchMap(()=>{ 
+    //         return this.httpClient.get<Customer[]>('http://localhost:3000/customers').pipe(
+    //             map(customers => {
+    //                 debugger
+    //                 return {
+    //                     type:customerActions.SET_CUSTOMERS,
+    //                     payload:customers
+    //                 };
+    //                  //console.log(customers)
+    //                 //return new customerActions.SetCustomers(customers)
+    //             })
+    //         )}
+    //         ))
+            
+        // }),
+        // map(customers => {
+        //     debugger
+        //     return {
+        //         type:customerActions.SET_CUSTOMERS,
+        //         payload:customers
+        //     };
+        //      //console.log(customers)
+        //     //return new customerActions.SetCustomers(customers)
+        // }),
+        
+        
+    
+    // debugger
+    // @Effect()
+    // getCustomer$:Observable<any>=this.actions$.pipe(
+    //     ofType(customerActions.GET_CUSTOMER),
+    //     switchMap((action:customerActions.GetCustomer)=>{
+    //         debugger
+    //         return this.httpClient.get<Customer[]>('http://localhost:3000/customers')
+    //             .pipe(
+    //                 map((data:Customer[])=>{
+    //                 console.log(data)
+    //                 //return new customerActions.SetCustomer(data)
+    //                 return {
+    //                     type:customerActions.SET_CUSTOMERS,
+    //                     payload:data
+    //                 }
+    //             }),
+    //                 catchError(error=>{
+    //                     return of()
+    //                 })
+    //                 );
+    //             }
+    //           )
+    //         );
 
-    )
+    
 
 
     // editCustomer=this.actions$.pipe(

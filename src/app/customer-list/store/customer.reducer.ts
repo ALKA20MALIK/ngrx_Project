@@ -2,7 +2,6 @@ import { Store } from "@ngrx/store";
 import { Customer } from '../models/customer.model';
 import * as AllCustomerActions from "../store/customer.action";
 
- //initialState:Customer[]
 // const initialState = {
 //     customers: [
 //         new Customer(1,'Alka',93284234),
@@ -25,32 +24,40 @@ export function CustomerReducer(state,action: AllCustomerActions.CustomerActions
         case "EDIT_CUSTOMER":
             debugger
             const updatedCustomer={
-                ...state,
+                ...state.customers[action.payload.index],
                 ...action.payload
             }
             
-            const customers=[...state.customers];
-            console.log("EDIT_CUSTOMER")
+            const updatedCustomers=[...state.customers];
+            updatedCustomers[action.payload.index]=updatedCustomer
+
+            //console.log("EDIT_CUSTOMER")
 
             return{
                 ...state,
-                customers:customers
+                customers:updatedCustomers
             };
             
         case "DELETE_CUSTOMER":
             debugger
-            const oldcustomers = [...state.customers];
-            oldcustomers.splice(action.index, 1);
+            // const oldcustomers = [...state.customers];
+            // oldcustomers.splice(action.payload, 1);
             
-            console.log("DELETE_CUSTOMER")
+            //console.log("DELETE_CUSTOMER")
             return {
                 ...state,
-                customers: oldcustomers,
+                customers: state.customers.filter((customer,index)=>{
+                    return index!==action.payload
+                }),
               };
-        case "SET_CUSTOMER":
-            return {
-                ...state,
-                customers: action.payload
-              };
+        //case "GET_CUSTOMERS":
+        //     return {...state};
+
+        case "SET_CUSTOMERS":
+        return{
+            ...state,
+            customers:[...action.payload]
+        };
+        
     }
 }

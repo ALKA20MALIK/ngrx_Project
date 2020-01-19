@@ -9,8 +9,8 @@ export const EDIT_CUSTOMER_END='EDIT_CUSTOMER_END'
 
 export const DELETE_CUSTOMER='DELETE_CUSTOMER'
 
-export const GET_CUSTOMER='GET_CUSTOMER'
-export const SET_CUSTOMER='SET_CUSTOMER'
+export const FETCH_CUSTOMERS='FETCH_CUSTOMERS'
+export const SET_CUSTOMERS='SET_CUSTOMERS'
 
 
 export class AddCustomer implements Action{
@@ -22,12 +22,12 @@ export class AddCustomer implements Action{
 
 export class EditCustomer implements Action{
     readonly type=EDIT_CUSTOMER
-    constructor(public index:number, public payload: Customer) {
+    constructor(public payload :{index:number, updatedCustomer: Customer}) {
     }
 }
 export class DeleteCustomer implements Action{
     readonly type=DELETE_CUSTOMER
-    constructor(public index : number){
+    constructor(public payload : number){
     }
 }
 
@@ -42,12 +42,11 @@ export class EditCustomerEnd implements Action{
     }
 }
 
-export class GetCustomer implements Action{
-    readonly type=GET_CUSTOMER
-    
+export class FetchCustomers implements Action{
+    readonly type=FETCH_CUSTOMERS
 }
-export class SetCustomer implements Action{
-    readonly type=SET_CUSTOMER
+export class SetCustomers implements Action{
+    readonly type=SET_CUSTOMERS
     constructor(public payload:Customer[]){}
 }
 
@@ -57,6 +56,6 @@ EditCustomer |
 DeleteCustomer | 
 EditCustomerStart | 
 EditCustomerEnd |
-GetCustomer |
-SetCustomer
+FetchCustomers |
+SetCustomers
 

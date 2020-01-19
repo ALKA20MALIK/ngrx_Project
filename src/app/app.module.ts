@@ -9,6 +9,8 @@ import { CustomerEditComponent } from './customer-list/customer-edit/customer-ed
 import { StoreModule } from '@ngrx/store';
 import { CustomerReducer } from './customer-list/store/customer.reducer';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+
 import { CustomerEffect } from './customer-list/store/customer.effect';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -24,6 +26,7 @@ import { EffectsModule } from '@ngrx/effects';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    HttpClientModule,
     StoreModule.forRoot({customerList:CustomerReducer}),
     EffectsModule.forRoot([CustomerEffect])
   ],

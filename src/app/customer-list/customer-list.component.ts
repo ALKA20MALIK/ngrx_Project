@@ -11,15 +11,18 @@ import * as customerAction from "./store/customer.action";
 })
 export class CustomerListComponent implements OnInit {
 
-customersList:Observable<{customers:Customer[]}>;
+  customersList :Observable<{customers:Customer[]}>;
 
   constructor(private store:Store<{customerList:{customers:Customer[]}}>) { }
 
   ngOnInit() {
     debugger
-    this.store.dispatch(new customerAction.GetCustomer())
+
+    //console.log(this.store.dispatch(new customerAction.FetchCustomers()))
+    this.customersList=this.store.dispatch(new customerAction.FetchCustomers())
+    //console.log(this.store.select('customerList'))
     //this.customersList=this.store.select('customerList')
-    console.log(this.customersList)
+    //console.log('kk'+ this.store.dispatch(new customerAction.GetCustomer()))
   }
 
   onDelete(id){

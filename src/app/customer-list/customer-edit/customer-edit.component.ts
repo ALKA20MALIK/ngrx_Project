@@ -52,7 +52,12 @@ export class CustomerEditComponent implements OnInit {
     const newCustomer=new Customer(this.id,value.Name,value.Contact)
 
     if(this.editMode){
-      this.store.dispatch(new customerAction.EditCustomer(this.id,newCustomer))
+      this.store.dispatch(new customerAction.EditCustomer({
+        index:this.id,
+        updatedCustomer:newCustomer
+      }));
+
+      //this.store.dispatch(new customerAction.EditCustomer(this.id,newCustomer))
     }
     else
     {
